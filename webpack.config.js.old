@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: './src/index.js',
+    entry: './src/frames/index.js',
     output: {
         path: path.resolve('./'),
         filename: 'index.js',

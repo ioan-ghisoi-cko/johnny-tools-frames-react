@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Frames, CardNumber, ExpiryDate, Cvv } from 'johnny-tmp/build';
+import { Frames, CardNumber, ExpiryDate, Cvv } from './frames';
 
 function App() {
     return (
