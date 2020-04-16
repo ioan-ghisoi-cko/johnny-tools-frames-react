@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import loadCdn from './utils/loadCdn';
 import { FramesProps, FramesAppendedProps, FramesEvents, FramesInitProps } from './types/types';
 
-import './App.css';
-
 declare global {
     interface Window {
         Frames: FramesAppendedProps;

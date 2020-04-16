@@ -1,6 +1,8 @@
 import React from 'react';
 import { Frames, CardNumber, ExpiryDate, Cvv } from './frames';
 
+import './App.css';
+
 function App() {
     return (
         <div className="App">
