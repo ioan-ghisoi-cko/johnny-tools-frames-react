@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Frames, CardNumber, ExpiryDate, Cvv } from './frames';
 
 function App() {
@@ -13,26 +12,26 @@ function App() {
                         cardNumberPlaceholder: 'Card number',
                         expiryMonthPlaceholder: 'MM',
                         expiryYearPlaceholder: 'YY',
-                        cvvPlaceholder: 'CVV'
+                        cvvPlaceholder: 'CVV',
                     },
                     style: {
                         base: {
-                            fontSize: '17px'
-                        }
-                    }
+                            fontSize: '17px',
+                        },
+                    },
                 }}
                 ready={() => {}}
-                frameActivated={e => {}}
-                frameFocuseady={e => {}}
-                frameBlur={e => {}}
-                frameValidationChanged={e => {}}
-                paymentMethodChanged={e => {}}
-                cardValidationChanged={e => {}}
-                cardSubmitted={e => {}}
-                cardTokenized={e => {
+                frameActivated={(e) => {}}
+                frameFocus={(e) => {}}
+                frameBlur={(e) => {}}
+                frameValidationChanged={(e) => {}}
+                paymentMethodChanged={(e) => {}}
+                cardValidationChanged={(e) => {}}
+                cardSubmitted={() => {}}
+                cardTokenized={(e) => {
                     alert(e.token);
                 }}
-                cardTokenizationFailed={e => {}}
+                cardTokenizationFailed={(e) => {}}
             >
                 <CardNumber />
                 <div className="date-and-code">

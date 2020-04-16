@@ -1,9 +1,9 @@
-import { CDN } from '../config';
+import { CDN } from '../config/config';
 
-const loadCdn = () => {
+const loadCdn = (): Promise<any> => {
     const existingScript = document.querySelector(`script[src$="${CDN}"]`);
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         if (!existingScript) {
             try {
                 const script = document.createElement('script');
@@ -14,7 +14,7 @@ const loadCdn = () => {
                 script.onload = () => {
                     resolve();
                 };
-                script.onerror = er => {
+                script.onerror = (er) => {
                     reject(er);
                 };
             } catch (er) {
