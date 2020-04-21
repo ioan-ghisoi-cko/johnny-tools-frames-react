@@ -28,6 +28,19 @@ export class Frames extends Component<FramesProps> {
             });
     }
 
+    shouldComponentUpdate(nextProps: FramesProps) {
+        if (nextProps.config.cardholder && nextProps.config.cardholder.name) {
+            window.Frames.cardholder.name = nextProps.config.cardholder.name;
+        }
+        if (nextProps.config.cardholder && nextProps.config.cardholder.billingAddress) {
+            window.Frames.cardholder.billingAddress = nextProps.config.cardholder.billingAddress;
+        }
+        if (nextProps.config.cardholder && nextProps.config.cardholder.phone) {
+            window.Frames.cardholder.phone = nextProps.config.cardholder.phone;
+        }
+        return true;
+    }
+
     initializeFrames = () => {
         let config = {
             publicKey: this.props.config.publicKey,

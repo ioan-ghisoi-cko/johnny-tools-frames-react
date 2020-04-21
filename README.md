@@ -32,13 +32,13 @@ Here is an example:
             cardNumberPlaceholder: 'Card number',
             expiryMonthPlaceholder: 'MM',
             expiryYearPlaceholder: 'YY',
-            cvvPlaceholder: 'CVV'
+            cvvPlaceholder: 'CVV',
         },
         style: {
             base: {
-                fontSize: '17px'
-            }
-        }
+                fontSize: '17px',
+            },
+        },
     }}
 >
     ...
@@ -47,22 +47,22 @@ Here is an example:
 
 #### Event handlers
 
-The event hanlers are simply translated as props, so you can simply follow the Frames event hanlers [reference](https://docs.checkout.com/docs/frames-reference#section-events).
+The event handlers are simply translated as props, so you can simply follow the Frames event hanlers [reference](https://docs.checkout.com/docs/frames-reference#section-events).
 Here is an example:
 
 ```js
 <Frames
     config={config}
     ready={() => {}}
-    frameActivated={e => {}}
-    frameFocuseady={e => {}}
-    frameBlur={e => {}}
-    frameValidationChanged={e => {}}
-    paymentMethodChanged={e => {}}
-    cardValidationChanged={e => {}}
-    cardSubmitted={e => {}}
-    cardTokenized={e => {}}
-    cardTokenizationFailed={e => {}}
+    frameActivated={(e) => {}}
+    frameFocusead={(e) => {}}
+    frameBlur={(e) => {}}
+    frameValidationChanged={(e) => {}}
+    paymentMethodChanged={(e) => {}}
+    cardValidationChanged={(e) => {}}
+    cardSubmitted={(e) => {}}
+    cardTokenized={(e) => {}}
+    cardTokenizationFailed={(e) => {}}
 >
     <CardNumber />
     <ExpiryDate />
@@ -78,9 +78,9 @@ Here is a full example of the full flow:
 ```js
 <Frames
     config={{
-        publicKey: 'pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73'
+        publicKey: 'pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73',
     }}
-    cardTokenized={e => {
+    cardTokenized={(e) => {
         alert(e.token);
     }}
 >
@@ -109,4 +109,43 @@ Frames.addEventHandler();
 Frames.removeEventHandler();
 Frames.removeAllEventHandlers();
 Frames.enableSubmitForm();
+```
+
+#### Cardholder
+
+If you need to inject the cardholder name on go, for cases where you render the payment form
+at the same time as the input for the billing and cardholder name, you can simply update
+the props and Frames will reflect the latest changes
+
+```js
+const [cardholder, setCardholder] = useState({
+   name: '',
+   phone: '',
+   billingAddress: {
+       addressLine1: '',
+   },
+});
+...
+<Frames
+   config={{
+       cardholder: {
+           name: cardholder.name,
+           phone: cardholder.phone,
+           billingAddress: cardholder.billingAddress,
+       }
+   }}
+   ...
+/>
+...
+<ExampleInput
+   onChange={(e) => {
+       setCardholder({
+           name: e.target.value,
+           phone: '7123456789',
+           billingAddress: {
+               addressLine1: 'London Street',
+           },
+       });
+   }}
+/>
 ```

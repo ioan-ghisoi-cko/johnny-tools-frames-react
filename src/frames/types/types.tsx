@@ -52,12 +52,12 @@ export interface FramesStyle {
 }
 
 export interface FramesBillingAddress {
-    addressLine1: string;
-    addressLine2: string;
-    zip: string;
-    city: string;
-    state: string;
-    country: string;
+    addressLine1?: string;
+    addressLine2?: string;
+    zip?: string;
+    city?: string;
+    state?: string;
+    country?: string;
 }
 
 export interface GatewayBillingAddress {
@@ -224,6 +224,7 @@ export interface FramesProps {
 
 export interface FramesAppendedProps extends FramesProps {
     Events: FramesEvents;
+    cardholder: FramesCardholder;
     init: (props?: FramesInitProps) => void;
     isCardValid: (props?: FramesProps) => boolean;
     submitCard: (props?: FramesProps) => Promise<void>;
