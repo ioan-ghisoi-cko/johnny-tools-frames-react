@@ -48,7 +48,12 @@ export interface FramesStyle {
     valid?: React.CSSProperties;
     invalid?: React.CSSProperties;
     focus?: React.CSSProperties;
-    placeholder?: React.CSSProperties;
+    placeholder?: {
+        base?: React.CSSProperties;
+        valid?: React.CSSProperties;
+        invalid?: React.CSSProperties;
+        focus?: React.CSSProperties;
+    };
 }
 
 export interface FramesBillingAddress {
