@@ -1,6 +1,6 @@
 {
     "name": "johnny-tools-frames-react",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "peerDependencies": {
         "react": ">=16.8"
     },
