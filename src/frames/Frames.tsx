@@ -185,9 +185,9 @@ export class Frames extends Component<FramesProps> {
         window.Frames.removeAllEventHandlers(window.Frames.Events.READY);
     }
 
-    render(): JSX.Element {
+    render(): React.ReactNode {
         const { children } = this.props;
 
-        return <div>{children}</div>;
+        return children;
     }
 }
