@@ -72,8 +72,6 @@ export class Frames extends Component<FramesProps> {
             delete config.localization;
         }
 
-        const retries = 3;
-
         try {
             if (window.Frames) {
                 window.Frames.init(config);
