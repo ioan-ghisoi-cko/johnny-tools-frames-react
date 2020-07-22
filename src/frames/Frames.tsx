@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import loadCdn from './utils/loadCdn';
 import { FramesProps, FramesAppendedProps, FramesEvents, FramesInitProps } from './types/types';
+import { CDN } from './config/config';
 
 declare global {
     interface Window {
@@ -18,14 +18,14 @@ declare global {
  */
 export class Frames extends Component<FramesProps> {
     componentDidMount(): void {
-        loadCdn()
-            .then(() => this.initializeFrames())
-            .catch((er) => {
-                console.error(
-                    'Could not add the checkout.com CDN to the DOM or there is an issue with the configuration'
-                );
-                throw er;
-            });
+        const existingScript = document.querySelector(`script[src$="${CDN}"]`);
+        if (!existingScript) {
+            console.error(
+                `Checkout.com CDN not present. Perhaps you forgot to add <script src="${CDN}"></script> to your index.html file.`
+            );
+        } else {
+            this.initializeFrames();
+        }
     }
 
     shouldComponentUpdate(nextProps: FramesProps) {
@@ -72,8 +72,16 @@ export class Frames extends Component<FramesProps> {
             delete config.localization;
         }
 
+        const retries = 3;
+
         try {
-            window.Frames.init(config);
+            if (window.Frames) {
+                window.Frames.init(config);
+            } else {
+                console.error(
+                    `Frames was used before the script (from the CDN) was loaded completely`
+                );
+            }
         } catch (e) {
             throw e;
         }
@@ -173,16 +181,18 @@ export class Frames extends Component<FramesProps> {
 
     componentWillUnmount(): void {
         // remove event handlers to avoid event duplication
-        window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_SUBMITTED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_TOKENIZATION_FAILED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_TOKENIZED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_VALIDATION_CHANGED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_ACTIVATED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_BLUR);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_FOCUS);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_VALIDATION_CHANGED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.PAYMENT_METHOD_CHANGED);
-        window.Frames.removeAllEventHandlers(window.Frames.Events.READY);
+        if (window.Frames) {
+            window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_SUBMITTED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_TOKENIZATION_FAILED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_TOKENIZED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_VALIDATION_CHANGED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_ACTIVATED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_BLUR);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_FOCUS);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.FRAME_VALIDATION_CHANGED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.PAYMENT_METHOD_CHANGED);
+            window.Frames.removeAllEventHandlers(window.Frames.Events.READY);
+        }
     }
 
     render(): React.ReactNode {

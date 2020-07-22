@@ -1,6 +1,22 @@
-❗️EXPERIMENTAL
+❗️BETA
 
 This project is a minumalistic React wrapper over [Checkout.com Frames](https://docs.checkout.com/docs/frames).
+
+# Add or load the CDN
+
+Make sure that you load the CD before you mount the Frames component. You can add it for example in your index.html file
+
+```html
+<script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+```
+
+If you do server side rendering you can add it in the Head:
+
+```jsx
+<Head>
+    <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+</Head>
+```
 
 # Import
 
